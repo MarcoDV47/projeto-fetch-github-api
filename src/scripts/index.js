@@ -35,6 +35,7 @@ async function getUserData(username) {
     user.setInfo(userResponse);
     user.setRepositories(repositoriesResponse);
     user.setEvents(eventsResponse);
+    console.log(user.eventsList);
     screen.render(user);
 }
 

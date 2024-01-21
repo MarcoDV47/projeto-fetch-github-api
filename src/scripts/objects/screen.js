@@ -17,7 +17,7 @@ export const screen = {
 
         let repositoriesItems = "";
         userData.repositories.forEach(repo =>
-            repositoriesItems += 
+            repositoriesItems +=
             `<li>
                 <div>
                     <a href="${repo.html_url}" target="_blank">${repo.name}</a>
@@ -30,6 +30,7 @@ export const screen = {
                 </div>
             </li>`
         );
+
         if (userData.repositories.length > 0) {
             this.userProfile.innerHTML +=
                 `<div class="repositories section">
@@ -39,19 +40,22 @@ export const screen = {
         }
 
         let eventsItems = "";
-        for (let i = 0; i < 10; i++) {
-            const basePath = userData.eventsList[i];
-            eventsItems += `<li><a 
-            href="https://github.com/${basePath.repo.name}" target="_blank">${basePath.repo.name}</a>
-            <p>- ${basePath.payload.commits[0].message}</p></li>`;
-        }
+        userData.eventsList.forEach(event =>
+            eventsItems +=
+            `<li>
+                <a href="https://github.com/${event.repo.name}" target="_blank">${event.repo.name}</a>
+                <p>- ${event.payload.commits ? event.payload.commits[0].message : "First Commit"}
+                </p>
+             </li>`);
 
-        this.userProfile.innerHTML +=
-            `<div class="events">
-            <h2>Eventos</h2>
-            <br>
-            <ul>${eventsItems}</ul>
-            </div>`
+        if (userData.eventsList.length > 0) {
+            this.userProfile.innerHTML +=
+                `<div class="events">
+                    <h2>Eventos</h2>
+                    <br>
+                    <ul>${eventsItems}</ul>
+                </div>`
+        }
     },
     renderError() {
         this.userProfile.innerHTML = `<h2>O usuário não foi encontrado</h2>`
